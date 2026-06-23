@@ -1,0 +1,13 @@
+{
+  "name": "interviewer-frontend",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "next dev --webpack",
+    "build": "next build --webpack",
+    "start": "next start"
+  },
+  "devDependencies": {
+    "@types/react": "19.2.17"
+  }
+}
