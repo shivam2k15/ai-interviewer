@@ -1,12 +1,12 @@
 "use client";
 
-import { FormEvent, useState } from "react";
+import { useState } from "react";
+import type { FormEvent } from "react";
+import { ChatComposer } from "./components/chat-composer";
+import { ChatFeed } from "./components/chat-feed";
+import { ThemeToggle } from "./components/theme-toggle";
 import { getChatResponse } from "./service";
-
-type ChatItem = {
-  role: "user" | "assistant" | "error";
-  content: string;
-};
+import type { ChatItem } from "./components/types";
 
 export default function HomePage() {
   const [question, setQuestion] = useState("");
@@ -48,42 +48,19 @@ export default function HomePage() {
 
   return (
     <main className="shell">
-      <section className="panel">
-        <p className="eyebrow">Ollama + LangGraph</p>
-        <h1>Ask a question</h1>
-        <p className="subcopy">
-          Type a prompt, send it to the local API, and render the response in a
-          simple list below.
-        </p>
+      <div className="topbar">
+        <h3>AI-Interviewer</h3>
+        <ThemeToggle />
+      </div>
 
-        <form className="composer" onSubmit={onSubmit}>
-          <input
-            value={question}
-            onChange={(event) => setQuestion(event.target.value)}
-            placeholder="Ask something..."
-            aria-label="Question"
-          />
-          <button type="submit" disabled={loading}>
-            {loading ? "Sending..." : "Send"}
-          </button>
-        </form>
-      </section>
+      <ChatFeed messages={messages} />
 
-      <section className="list">
-        <h2>Q and A</h2>
-        <div className="cards">
-          {messages.length === 0 ? (
-            <p className="empty">No messages yet.</p>
-          ) : (
-            messages.map((item, index) => (
-              <article className={`card ${item.role}`} key={`${item.role}-${index}`}>
-                <span className="role">{item.role}</span>
-                <p>{item.content}</p>
-              </article>
-            ))
-          )}
-        </div>
-      </section>
+      <ChatComposer
+        question={question}
+        loading={loading}
+        onQuestionChange={setQuestion}
+        onSubmit={onSubmit}
+      />
     </main>
   );
 }

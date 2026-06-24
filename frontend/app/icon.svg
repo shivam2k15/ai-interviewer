@@ -1,0 +1,43 @@
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="16" y1="10" x2="48" y2="54" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#191C22" />
+      <stop offset="1" stop-color="#0B0D11" />
+    </linearGradient>
+    <linearGradient id="accent" x1="20" y1="16" x2="44" y2="48" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#E9EEF5" />
+      <stop offset="1" stop-color="#8E97A6" />
+    </linearGradient>
+    <linearGradient id="shine" x1="22" y1="14" x2="38" y2="24" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF" stop-opacity="0.9" />
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0" />
+    </linearGradient>
+  </defs>
+
+  <rect x="2" y="2" width="60" height="60" rx="18" fill="url(#bg)" />
+
+  <path
+    d="M32 10L48 18V34C48 44 40.5 52 32 54C23.5 52 16 44 16 34V18L32 10Z"
+    fill="url(#accent)"
+  />
+
+  <path
+    d="M32 18L41.5 22.8V33.2C41.5 39.8 37.1 45.2 32 47C26.9 45.2 22.5 39.8 22.5 33.2V22.8L32 18Z"
+    fill="#101318"
+  />
+
+  <path
+    d="M26.5 27.5C29 25.7 35 25.7 37.5 27.5"
+    stroke="url(#shine)"
+    stroke-width="2.6"
+    stroke-linecap="round"
+  />
+
+  <path
+    d="M26.5 34.5H37.5"
+    stroke="#D6DCE5"
+    stroke-width="2.4"
+    stroke-linecap="round"
+    opacity="0.9"
+  />
+</svg>
