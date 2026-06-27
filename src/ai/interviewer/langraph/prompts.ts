@@ -1,4 +1,4 @@
-import type { Topic } from "../interfaces/interview";
+import type { Topic } from "../../../modules/interview/interfaces";
 
 export const getSystemPrompt = (state: {
   score: number;
@@ -8,7 +8,11 @@ export const getSystemPrompt = (state: {
   followUpRequired: boolean;
   difficultyLevel: string;
   interviewLevel: string;
-}) => `
+}) =>
+  state.currentTopic === "END"
+    ? `End the interview with polite closing remarks. 
+    HR will let you know about this interview feedback and next steps.`
+    : `
 You are a ${state.interviewLevel} backend technical interviewer.
 
 You are NOT an assistant. You do NOT help or teach.

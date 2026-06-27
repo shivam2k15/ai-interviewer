@@ -1,7 +1,7 @@
 import { HumanMessage } from "@langchain/core/messages";
-import { graph } from "./graph";
+import { graph } from "./builder";
 
-export async function main(
+export async function interviewer(
   prompt: string = "Tell me about yourself",
   sessionId: string = "chat",
 ): Promise<string> {

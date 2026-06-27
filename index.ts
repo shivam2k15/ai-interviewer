@@ -1,4 +1,4 @@
-import { router } from "./src/routes/index.ts";
+import { router } from "./src/app/routes/index.ts";
 
 Bun.serve({
   port: process.env.PORT,

@@ -7,7 +7,7 @@ const apiBaseUrl =
   process.env.NEXT_PUBLIC_BUN_API_URL ?? "http://localhost:3001";
 
 export async function getChatResponse(prompt: string): Promise<string> {
-  const response = await fetch(`${apiBaseUrl}/api/chat`, {
+  const response = await fetch(`${apiBaseUrl}/api/interview`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

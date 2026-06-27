@@ -1,6 +1,6 @@
 import { Annotation } from "@langchain/langgraph";
 import type { BaseMessage } from "@langchain/core/messages";
-import type { Topic } from "../interfaces/interview";
+import type { Topic } from "../../../modules/interview/interfaces";
 
 export const GraphState = Annotation.Root({
   history: Annotation<BaseMessage[]>({

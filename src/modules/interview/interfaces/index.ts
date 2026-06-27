@@ -4,10 +4,11 @@ export type Topic =
   | "javascript"
   | "typescript"
   | "async"
+  | "database"
   | "react"
   | "api"
-  | "database"
-  | "system design";
+  | "system design"
+  | "END";
 
 export interface InterviewSession {
   history: BaseMessage[];

@@ -1,10 +1,4 @@
-import type { InterviewSession } from "../../interfaces/interview";
-
-export const QUESTIONS_PER_TOPIC = 2;
-
-export const MAX_FOLLOW_UPS = 1;
-
-export const CONTEXT_WINDOW_SIZE = 6;
+import type { InterviewSession } from "../modules/interview/interfaces";
 
 export const getNextTopic = (
   currentTopic: InterviewSession["currentTopic"],
@@ -17,7 +11,8 @@ export const getNextTopic = (
     "api",
     "database",
     "system design",
+    "END",
   ];
   const currentIndex = topics.indexOf(currentTopic);
-  return topics[(currentIndex + 1) % topics.length] ?? "javascript";
+  return topics[(currentIndex + 1) % topics.length] ?? "END";
 };
