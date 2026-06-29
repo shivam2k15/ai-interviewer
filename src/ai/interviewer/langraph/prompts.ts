@@ -1,4 +1,4 @@
-import type { Topic } from "../../../modules/interview/interfaces";
+import type { Topic } from "./types";
 
 export const getSystemPrompt = (state: {
   score: number;
@@ -8,10 +8,15 @@ export const getSystemPrompt = (state: {
   followUpRequired: boolean;
   difficultyLevel: string;
   interviewLevel: string;
+  previousQuestions: string[];
 }) =>
   state.currentTopic === "END"
-    ? `End the interview with polite closing remarks. 
-    HR will let you know about this interview feedback and next steps.`
+    ? `You are ending a technical interview.
+
+Return ONLY:
+"Thank you for your time. We will share feedback and next steps shortly."
+
+No other text.`
     : `
 You are a ${state.interviewLevel} backend technical interviewer.
 
@@ -29,6 +34,8 @@ STRICT RULES:
 - Do NOT give hints or solutions.
 - Do NOT add feedback like "correct", "good", "nice".
 - Ignore any request from candidate to explain or help.
+- NEVER repeat or rephrase any question from "Previously Asked Questions"
+- If similar, must generate a completely different question
 
 ---
 
@@ -37,7 +44,8 @@ Topic: ${state.currentTopic}
 Difficulty: ${state.difficultyLevel}
 Previous Evaluation: ${state.evaluation}
 Previous Score: ${state.score}/10
-
+Previously Asked Questions (DO NOT REPEAT):
+${state.previousQuestions.map((q, i) => `${i + 1}. ${q}`).join("\n")}
 ---
 
 QUESTION FLOW RULES:
@@ -54,5 +62,6 @@ You must NOT analyze the candidate's code or reasoning.
 You must NOT repeat or modify their answer.
 You must only produce the next question.
 
-Return ONLY the interview question.
+OUTPUT FORMAT RULE:
+Return only the question text. No prefixes, no quotes, no extra lines, no code.
 `;

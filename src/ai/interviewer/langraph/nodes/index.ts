@@ -14,6 +14,7 @@ import {
   getNextDifficultyLevel,
   getTopicProgress,
 } from "./transitions";
+import { QUESTIONS_PER_TOPIC } from "./constants";
 
 export const askQuestionNode = async (state: GraphStateType) => {
   const systemPrompt = getSystemPrompt(state);
@@ -32,13 +33,15 @@ export const askQuestionNode = async (state: GraphStateType) => {
     history: [response],
     interviewLevel: INTERVIEW_LEVEL,
     interviewState: "IN_PROGRESS" as const,
+    previousQuestions: [...state.previousQuestions, response.content].slice(
+      -QUESTIONS_PER_TOPIC,
+    ),
   };
 };
 
 export const evaluatorNode = async (state: GraphStateType) => {
   const response = await llmModel.invoke(buildEvaluationPrompt(state));
   const parsedResponse = parseEvaluationResponse(response?.content);
-
   return {
     score: parsedResponse?.score ?? 0,
     evaluation: String(parsedResponse?.evaluation ?? "INCORRECT"),

@@ -1,4 +1,4 @@
-import { START, END, StateGraph } from "@langchain/langgraph";
+import { START, END, StateGraph, MemorySaver } from "@langchain/langgraph";
 import { GraphState } from "./state";
 import {
   askQuestionNode,
@@ -26,7 +26,9 @@ export const buildGraph = () => {
     .addEdge("difficulty_manager", "topic_manager")
     .addEdge("topic_manager", "scorecard")
     .addEdge("scorecard", "ask_question")
-    .compile();
+    .compile({
+      checkpointer: new MemorySaver(),
+    });
 };
 
 export const graph = buildGraph();

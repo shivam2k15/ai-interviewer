@@ -1,4 +1,4 @@
-import { CONTEXT_WINDOW_SIZE } from "../../../../shared/constants";
+import { CONTEXT_WINDOW_SIZE } from "./constants";
 import type { GraphStateType } from "../state";
 
 export const getConversationWindow = (history: GraphStateType["history"]) =>

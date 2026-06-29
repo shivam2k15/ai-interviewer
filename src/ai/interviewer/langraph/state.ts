@@ -1,6 +1,6 @@
 import { Annotation } from "@langchain/langgraph";
 import type { BaseMessage } from "@langchain/core/messages";
-import type { Topic } from "../../../modules/interview/interfaces";
+import type { Topic } from "./types";
 
 export const GraphState = Annotation.Root({
   history: Annotation<BaseMessage[]>({
@@ -42,6 +42,10 @@ export const GraphState = Annotation.Root({
   totalFollowUps: Annotation<number>({
     reducer: (left, right) => right,
     default: () => 0,
+  }),
+  previousQuestions: Annotation<string[]>({
+    reducer: (left, right) => left.concat(right),
+    default: () => [],
   }),
 });
 

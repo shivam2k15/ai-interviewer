@@ -5,11 +5,18 @@ export async function interviewer(
   prompt: string = "Tell me about yourself",
   sessionId: string = "chat",
 ): Promise<string> {
-  const graphResult = await graph.invoke({
-    history: [new HumanMessage(prompt)],
-  });
+  const graphResult = await graph.invoke(
+    {
+      history: [new HumanMessage(prompt)],
+    },
+    {
+      configurable: {
+        thread_id: sessionId,
+      },
+    },
+  );
 
-  let aiResponse = graphResult.history.at(-1);
+  const aiResponse = graphResult.history.at(-1);
 
   if (!aiResponse) {
     throw new Error("No AI response returned");

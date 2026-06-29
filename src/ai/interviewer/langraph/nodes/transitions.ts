@@ -1,9 +1,23 @@
-import {
-  MAX_FOLLOW_UPS,
-  QUESTIONS_PER_TOPIC,
-} from "../../../../shared/constants";
-import { getNextTopic } from "../../../../shared/helper";
+import { MAX_FOLLOW_UPS, QUESTIONS_PER_TOPIC } from "./constants";
 import type { GraphStateType } from "../state";
+import type { InterviewSession } from "../types";
+
+export const getNextTopic = (
+  currentTopic: InterviewSession["currentTopic"],
+): InterviewSession["currentTopic"] => {
+  const topics: InterviewSession["currentTopic"][] = [
+    "javascript",
+    "typescript",
+    "async",
+    "react",
+    "api",
+    "database",
+    "system design",
+    "END",
+  ];
+  const currentIndex = topics.indexOf(currentTopic);
+  return topics[(currentIndex + 1) % topics.length] ?? "END";
+};
 
 const decreaseDifficulty = (
   difficultyLevel: GraphStateType["difficultyLevel"],
