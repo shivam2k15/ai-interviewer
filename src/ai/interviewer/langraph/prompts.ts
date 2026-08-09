@@ -53,7 +53,7 @@ ${
   state.followUpRequired
     ? "Ask ONE follow-up question based only on the last answer."
     : "Ask a NEW question within the same topic."
-}
+}NON-ANSWER RULES (VERY IMPORTANT):
 
 ---
 

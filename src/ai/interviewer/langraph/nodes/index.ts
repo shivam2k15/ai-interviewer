@@ -1,5 +1,5 @@
 import { SystemMessage } from "langchain";
-import { llmModel } from "../../../llms/adapters/ollama.adapter";
+import llmModel from "../../../llms";
 import { getSystemPrompt } from "../prompts";
 import type { GraphStateType } from "../state";
 import { INTERVIEW_LEVEL } from "./constants";
@@ -18,11 +18,11 @@ import { QUESTIONS_PER_TOPIC } from "./constants";
 
 export const askQuestionNode = async (state: GraphStateType) => {
   const systemPrompt = getSystemPrompt(state);
+
   const updatedHistory = [
     new SystemMessage(systemPrompt),
     ...getConversationWindow(state.history),
   ];
-
   const response = await llmModel.invoke(updatedHistory);
 
   //call db service to save the response in the database
@@ -34,7 +34,7 @@ export const askQuestionNode = async (state: GraphStateType) => {
     interviewLevel: INTERVIEW_LEVEL,
     interviewState: "IN_PROGRESS" as const,
     previousQuestions: [...state.previousQuestions, response.content].slice(
-      -QUESTIONS_PER_TOPIC,
+      -QUESTIONS_PER_TOPIC + state.totalFollowUps,
     ),
   };
 };
@@ -42,6 +42,7 @@ export const askQuestionNode = async (state: GraphStateType) => {
 export const evaluatorNode = async (state: GraphStateType) => {
   const response = await llmModel.invoke(buildEvaluationPrompt(state));
   const parsedResponse = parseEvaluationResponse(response?.content);
+
   return {
     score: parsedResponse?.score ?? 0,
     evaluation: String(parsedResponse?.evaluation ?? "INCORRECT"),

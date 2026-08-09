@@ -44,7 +44,7 @@ export const GraphState = Annotation.Root({
     default: () => 0,
   }),
   previousQuestions: Annotation<string[]>({
-    reducer: (left, right) => left.concat(right),
+    reducer: (left, right) => right,
     default: () => [],
   }),
 });

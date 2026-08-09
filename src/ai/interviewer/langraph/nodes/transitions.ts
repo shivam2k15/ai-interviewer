@@ -51,7 +51,7 @@ const increaseDifficulty = (
 };
 
 export const getFollowUpRequired = (evaluation: GraphStateType["evaluation"]) =>
-  evaluation === "PARTIAL" || evaluation === "INCORRECT";
+  evaluation === "PARTIAL";
 
 export const getNextDifficultyLevel = (state: GraphStateType) =>
   state.score < 4
