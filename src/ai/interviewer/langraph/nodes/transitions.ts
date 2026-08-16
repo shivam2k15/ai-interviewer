@@ -7,12 +7,7 @@ export const getNextTopic = (
 ): InterviewSession["currentTopic"] => {
   const topics: InterviewSession["currentTopic"][] = [
     "javascript",
-    "typescript",
-    "async",
-    "react",
-    "api",
-    "database",
-    "system design",
+    "nodejs",
     "END",
   ];
   const currentIndex = topics.indexOf(currentTopic);

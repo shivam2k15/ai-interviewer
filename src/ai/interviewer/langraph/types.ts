@@ -8,6 +8,7 @@ export type Topic =
   | "react"
   | "api"
   | "system design"
+  | "nodejs"
   | "END";
 
 export interface InterviewSession {

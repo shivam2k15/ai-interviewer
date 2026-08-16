@@ -3,6 +3,7 @@ import llmModel from "../../../llms";
 import { getSystemPrompt } from "../prompts";
 import type { GraphStateType } from "../state";
 import { INTERVIEW_LEVEL } from "./constants";
+// import getEmbeddings from "./../../../embeddings/adapter";
 import {
   buildEvaluationPrompt,
   getConversationWindow,
@@ -28,6 +29,8 @@ export const askQuestionNode = async (state: GraphStateType) => {
   //call db service to save the response in the database
   // and if the current topic is END then return the final score and evaluation to the user
   //mark this interview as completed in the database and return the final score and evaluation to the user
+  // const rs = await getEmbeddings(String(response.content) ?? "");
+  // console.log(rs, "================>");
 
   return {
     history: [response],
@@ -42,7 +45,6 @@ export const askQuestionNode = async (state: GraphStateType) => {
 export const evaluatorNode = async (state: GraphStateType) => {
   const response = await llmModel.invoke(buildEvaluationPrompt(state));
   const parsedResponse = parseEvaluationResponse(response?.content);
-
   return {
     score: parsedResponse?.score ?? 0,
     evaluation: String(parsedResponse?.evaluation ?? "INCORRECT"),

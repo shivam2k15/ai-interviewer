@@ -21,11 +21,15 @@ export const buildGraph = () => {
         state.interviewState === "NOT_STARTED" ? "ask_question" : "evaluator",
       { ask_question: "ask_question", evaluator: "evaluator" },
     )
+    .addConditionalEdges(
+      "scorecard",
+      (state) => (state.interviewState === "COMPLETED" ? END : "ask_question"),
+      { [END]: END, ask_question: "ask_question" },
+    )
     .addEdge("ask_question", END)
     .addEdge("evaluator", "difficulty_manager")
     .addEdge("difficulty_manager", "topic_manager")
     .addEdge("topic_manager", "scorecard")
-    .addEdge("scorecard", "ask_question")
     .compile({
       checkpointer: new MemorySaver(),
     });
