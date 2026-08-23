@@ -1,3 +1,5 @@
+import userService from "../../db";
+
 export const post = async (req: Request) => {
   const newReq = (await req.json()) as {
     username: string;
@@ -11,7 +13,9 @@ export const post = async (req: Request) => {
     });
   }
 
-  return new Response(JSON.stringify({ username }), {
+  const respose = await userService.createUser({ username, password, name });
+
+  return new Response(JSON.stringify(respose), {
     headers: { "Content-Type": "application/json" },
   });
 };
