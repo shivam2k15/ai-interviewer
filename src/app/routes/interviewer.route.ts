@@ -1,5 +1,4 @@
 import { postInterviewer } from "../../modules";
-import { withCors } from "../middlewares/cors.middleware.ts";
 
 type MethodHandler = (req: Request) => Response | Promise<Response>;
 
@@ -13,4 +12,4 @@ function interviewerRoute(req: Request) {
   return handler?.(req) ?? new Response("Method Not Allowed", { status: 405 });
 }
 
-export default withCors(interviewerRoute);
+export default interviewerRoute;

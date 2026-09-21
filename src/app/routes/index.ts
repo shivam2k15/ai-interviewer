@@ -1,12 +1,13 @@
 import interviewerRoute from "./interviewer.route.ts";
 import authRoute from "./auth.route.ts";
 import { notFound } from "./not-found.route.ts";
+import { withCors } from "../middlewares/cors.middleware.ts";
 
 type RouteHandler = (req: Request) => Response | Promise<Response> | undefined;
 
 const routes: Record<string, RouteHandler> = {
-  "/api/interview": interviewerRoute,
-  "/api/auth": authRoute,
+  "/api/interview": withCors(interviewerRoute),
+  "/api/auth": withCors(authRoute),
 };
 
 export const router = async (req: Request): Promise<Response> => {

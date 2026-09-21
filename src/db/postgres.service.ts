@@ -7,13 +7,13 @@ const adapter = new PrismaPg({
 const prisma = new PrismaClient({ adapter });
 
 export const createUser = async (user: {
-  username: string;
+  email: string;
   password: string;
   name: string;
 }) => {
   const created = await prisma.user.create({
     data: {
-      email: user.username,
+      email: user.email,
       password: user.password,
       name: user.name,
     },

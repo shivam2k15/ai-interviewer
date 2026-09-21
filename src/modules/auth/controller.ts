@@ -1,19 +1,20 @@
 import userService from "../../db";
 
-export const post = async (req: Request) => {
+export const create = async (req: Request) => {
   const newReq = (await req.json()) as {
-    username: string;
+    email: string;
     password: string;
     name: string;
   };
-  const { username, password, name } = newReq;
-  if (!username || !password || !name) {
+  const { email, password, name } = newReq;
+  if (!email || !password || !name) {
     return new Response(JSON.stringify({ message: "All fields required." }), {
       headers: { "Content-Type": "application/json" },
+      status: 400,
     });
   }
 
-  const respose = await userService.createUser({ username, password, name });
+  const respose = await userService.createUser({ email, password, name });
 
   return new Response(JSON.stringify(respose), {
     headers: { "Content-Type": "application/json" },

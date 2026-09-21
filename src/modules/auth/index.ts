@@ -1,1 +1,1 @@
-export { post as register } from "./controller.ts";
+export { create as register } from "./controller.ts";
