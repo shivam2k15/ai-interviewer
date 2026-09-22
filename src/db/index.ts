@@ -1,3 +1,3 @@
-import { createUser } from "./postgres.service";
+import { createUser, findOne } from "./postgres.service";
 
-export default { createUser };
+export default { createUser, findOne };

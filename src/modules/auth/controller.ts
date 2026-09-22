@@ -14,8 +14,19 @@ export const create = async (req: Request) => {
     });
   }
 
-  const respose = await userService.createUser({ email, password, name });
+  const exists = await userService.findOne(email);
+  if (exists) {
+    return new Response(
+      JSON.stringify({ message: "This user already exists." }),
+      {
+        headers: { "Content-Type": "application/json" },
+        status: 400,
+      },
+    );
+  }
 
+  const respose = await userService.createUser({ email, password, name });
+  delete respose?.password;
   return new Response(JSON.stringify(respose), {
     headers: { "Content-Type": "application/json" },
   });
